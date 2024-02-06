@@ -12,4 +12,14 @@ export async function addUser(name , em , pass){
 
     return user;
 }
+export async function findUser(em){
+    const user = await prisma.user.findUnique({
+    where: {
+    email: em,
+    },
+})
+    return user;
+}
+
+
 

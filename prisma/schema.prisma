@@ -12,8 +12,8 @@ datasource db {
 
 model User {
   email String @id
-  username String @unique
-  password String 
+  username String 
+  password String  
 
   @@map("users")
 }
