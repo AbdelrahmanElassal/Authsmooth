@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {signup_get , login_get , signup_post , login_post} from '../controllers/authController.js';
+import {signup_get , login_get , signup_post , login_post} from '../controllers/authcmooController.js';
 
 const router = Router();
 
