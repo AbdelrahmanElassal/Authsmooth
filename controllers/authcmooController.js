@@ -1,6 +1,7 @@
 // controller actions
 import {validateCred} from './credentialVal.js'
-import { addUser } from "../prisma/script.js"
+import {validateLogin} from './loginVal.js'
+import { addUser , findUser} from "../prisma/script.js"
 import { json } from 'express';
 import  Jwt  from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -43,7 +44,18 @@ export const signup_post = async (req, res) => {
 
 export const login_post = async (req, res) => {
   const { email, password } = req.body;
-  
-  console.log(email, password);
-  res.send('user login');
+  try {
+    if(email == undefined){
+        let error = {email : "You should enter an email" , password : ""}
+        throw(error);
+    }
+    const u = await findUser(email);
+    await validateLogin(email , password);
+    const token = doToken(u.id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+    res.status(201).json({ u : u.id });
+  }catch (err) {
+    console.log(err)
+    res.status(400).json({err}); 
+  }
 }
