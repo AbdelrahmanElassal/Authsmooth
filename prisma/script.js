@@ -24,5 +24,14 @@ export async function findUser(em){
     return user;
 }
 
+export async function findUserbyID(id){
+    const user = await prisma.user.findUnique({
+    where: {
+    id: id,
+    },
+})
+    return user;
+}
+
 
 

@@ -59,3 +59,8 @@ export const login_post = async (req, res) => {
     res.status(400).json({err}); 
   }
 }
+
+export  const logout_get = (req, res) => {
+  res.cookie('jwt', "", { httpOnly: true, maxAge: 1 });
+  res.redirect('/');
+}
